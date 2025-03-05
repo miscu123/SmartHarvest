@@ -1,3 +1,4 @@
+// App.tsx
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProductPage from "./ProductPage";
@@ -9,6 +10,7 @@ import Navbar from "./Navbar";
 import Cart from "./Cart";
 import { CartProvider } from "./CartContext";
 import { AuthProvider } from "./AuthenticationContext"; // Import AuthProvider
+import Footer from "./Footer"; // Import Footer component
 import "./App.css";
 import "./NavigationButtons.css";
 
@@ -29,7 +31,6 @@ function App() {
 
   return (
     <AuthProvider>
-      {" "}
       {/* Wrap with AuthProvider */}
       <CartProvider>
         <Router>
@@ -51,11 +52,8 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
 
-            <footer className="bg-green-800 text-white p-6 mt-6">
-              <div className="container mx-auto text-center">
-                <p>© 2024 SmartHarvest - Smart Solutions for Agriculture</p>
-              </div>
-            </footer>
+            {/* Use Footer component */}
+            <Footer />
           </div>
         </Router>
       </CartProvider>
