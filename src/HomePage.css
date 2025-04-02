@@ -1,0 +1,72 @@
+/* HomePage.css */
+
+/* General container for the homepage */
+.home-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0fdf4; /* Light background color */
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Header styles */
+  .home-page-header {
+    margin-bottom: 40px;
+  }
+  
+  .logo {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #38a169; /* SmartHarvest green */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Logo hover effect */
+  .logo:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Welcome section */
+  .welcome-container {
+    opacity: 0;
+    animation: fadeIn 1s forwards, zoomIn 1.5s forwards;
+    transform: scale(0.8);
+  }
+  
+  /* The class that adds the animation */
+  .welcome-text {
+    font-size: 2.5rem;
+    color: #2f855a; /* SmartHarvest green */
+    font-weight: bold;
+  }
+  
+  .welcome-description {
+    font-size: 1.2rem;
+    color: #4a5568; /* Text color */
+    margin-top: 10px;
+  }
+  
+  /* Animation to fade in */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  /* Animation to zoom in */
+  @keyframes zoomIn {
+    0% {
+      transform: scale(0.8);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
