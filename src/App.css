@@ -239,3 +239,29 @@ footer {
 .section-enter {
   animation: fadeIn 0.5s ease-out;
 }
+
+.membership-container{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 50px;
+}
+.membership-card{
+  padding: 20px;
+  line-height: 40px;
+  width: 100%;
+  
+}
+
+.ul-container{
+  list-style-type: none;
+}
+
+.text-gray-600 svg{
+  width: 5%;
+}
+
+.welcome-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

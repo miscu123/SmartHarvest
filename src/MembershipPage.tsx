@@ -51,31 +51,13 @@ const MembershipPage: React.FC = () => {
           SmartHarvest Membership Plans
         </h1>
 
-        <div className="flex justify-center mb-8 space-x-4">
-          {membershipPlans.map((plan) => (
-            <button
-              key={plan.type}
-              onClick={() => setSelectedPlan(plan.type as any)}
-              className={`
-              px-6 py-2 rounded-lg transition-all duration-300
-              ${
-                selectedPlan === plan.type
-                  ? "bg-green-600 text-white"
-                  : "bg-white text-green-600 border border-green-600 hover:bg-green-50"
-              }
-            `}
-            >
-              {plan.title}
-            </button>
-          ))}
-        </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="membership-container">
           {membershipPlans.map((plan) => (
             <div
               key={plan.type}
               className={`
-              bg-white p-6 rounded-lg shadow-md 
+              membership-card
               ${
                 selectedPlan === plan.type
                   ? "border-4 border-green-600 transform scale-105"
@@ -90,7 +72,7 @@ const MembershipPage: React.FC = () => {
               <div className="text-4xl font-bold text-green-700 mb-4">
                 ${plan.price}/month
               </div>
-              <ul className="space-y-3 mb-6">
+              <ul className="ul-container">
                 {plan.features.map((feature, index) => (
                   <li key={index} className="flex items-center text-gray-600">
                     <svg

@@ -1,22 +1,102 @@
-import React, { useState } from "react";
-import "./index.css"; // Import the global CSS file
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import "./index.css";
 import "./HomePage.css";
+import { UserContext } from "./services/userContext.tsx";
 
 const AuthForm: React.FC = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const userContext = useContext(UserContext);
+
+  // Check if userContext is undefined
+  if (!userContext) {
+    throw new Error("UserContext is not provided");
+  }
+
+  const { handleLogin, handleRegister, setErrors, user } = userContext;
+  const [isLogin, setIsLogin] = useState<boolean>(true);
+  const [formData, setFormData] = useState<{ fullName: string; email: string; password: string }>({
+    fullName: "",
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState<string>("");
+  const navigate = useNavigate();
 
   const toggleForm = () => {
     setIsLogin((prev) => !prev);
+    setFormData({ fullName: "", email: "", password: "" });
+    setError("");
   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+  
+    try {
+      let response;
+      if (isLogin) {
+        response = await handleLogin({ email: formData.email, password: formData.password });
+      } else {
+        response = await handleRegister({
+          fullName: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+        });
+      }
+  
+      // Check if response is an object with a 'success' property
+      if (response && typeof response === 'object' && 'success' in response) {
+        if (response.success) {
+          // On successful login, navigate to account page
+          navigate("/account");
+        } else {
+          setError("An error occurred. Please check your credentials and try again.");
+        }
+      } else {
+        setError("Unexpected error: response data is missing.");
+      }
+    } catch (error) {
+      setError("An unexpected error occurred.");
+    }
+  };
+  
 
   return (
     <main className="welcome-container">
       <div className="auth-container">
         <h2>{isLogin ? "Login" : "Sign Up"}</h2>
-        <form>
-          <input type="text" placeholder="Username" required />
-          {!isLogin && <input type="email" placeholder="Email" required />}
-          <input type="password" placeholder="Password" required />
+        {error && <p className="error-message">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          {!isLogin && (
+            <input
+              type="text"
+              name="fullName"
+              placeholder="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
+              required
+            />
+          )}
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
           <button type="submit">{isLogin ? "Login" : "Sign Up"}</button>
         </form>
         <div className="auth-toggle">
