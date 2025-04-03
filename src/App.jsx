@@ -1,4 +1,4 @@
-// App.tsx
+// App.jsx
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProductPage from "./ProductPage";
@@ -8,7 +8,7 @@ import LoginPage from "./LoginPage";
 import HomePage from "./HomePage";
 import Navbar from "./Navbar";
 import Cart from "./Cart";
-import { CartProvider } from "./CartContext";
+import { CartProvider } from "./services/CartContext";
 import { AuthProvider } from "./AuthenticationContext"; // Import AuthProvider
 import { UserProvider } from "./services/userContext";
 import Footer from "./Footer"; // Import Footer component
@@ -27,9 +27,7 @@ function NotFound() {
 }
 
 function App() {
-  const [activeSection, setActiveSection] = useState<
-    "home" | "products" | "services" | "membership" | "login" | "cart"
-  >("home");
+  const [activeSection, setActiveSection] = useState("home");
 
   return (
     <AuthProvider>

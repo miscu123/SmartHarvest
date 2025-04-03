@@ -1,20 +1,20 @@
-async function api(path: string, method: string = 'GET', body: any = null) {
+async function api(path, method = 'GET', body = null) {
     const url = `http://www.localhost:8080/order/${path}`;
-    const options: RequestInit = {
+    const options = {
         method,
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
             'X-Requested-With': 'XMLHttpRequest',
         },
     };
-
+    
     if (body) {
         options.body = JSON.stringify(body);
     }
-
+    
     const response = await fetch(url, options);
     const data = await response.json().catch(() => null);
-
+    
     if (!response.ok) {
         return {
             success: false,
@@ -22,7 +22,7 @@ async function api(path: string, method: string = 'GET', body: any = null) {
             message: (data && data.message) || response.statusText || 'Request failed',
         };
     }
-
+    
     return {
         success: true,
         status: response.status,
@@ -30,7 +30,7 @@ async function api(path: string, method: string = 'GET', body: any = null) {
     };
 }
 
-export function addOrder(orderRequest: object) {
+export function addOrder(orderRequest) {
     return api('sendOrder', 'POST', orderRequest);
 }
 
@@ -58,14 +58,14 @@ export function getAllOrders() {
     return api('getAllOrders', 'GET');
 }
 
-export function deleteOrder(id: number) {
+export function deleteOrder(id) {
     return api(`deleteOrder/${id}`, 'DELETE');
 }
 
-export function updateOrder(id: number, data: object) {
+export function updateOrder(id, data) {
     return api(`updateOrder/${id}`, 'PUT', data);
 }
 
-export function cancelOrder(id: number) {
+export function cancelOrder(id) {
     return api(`cancelOrder/${id}`, 'PUT', null);
 }
